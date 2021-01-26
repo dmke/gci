@@ -61,5 +61,6 @@ func main() {
 			}
 		}
 	}
+	gci.ClearModCache()
 	os.Exit(exitCode)
 }

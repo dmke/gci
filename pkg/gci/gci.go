@@ -294,6 +294,9 @@ func processFile(filename string, out io.Writer, set *FlagSet) error {
 
 	ret := bytes.Split(src[start+len(importStartFlag):end], []byte(linebreak))
 
+	if set.LocalFlag == "" {
+		set.LocalFlag, _ = modCache.Lookup(filename)
+	}
 	p := newPkg(ret, set.LocalFlag)
 
 	res := append(src[:start+len(importStartFlag)], append(p.fmt(), src[end+1:]...)...)
@@ -356,6 +359,9 @@ func Run(filename string, set *FlagSet) ([]byte, []byte, error) {
 
 	ret := bytes.Split(src[start+len(importStartFlag):end], []byte(linebreak))
 
+	if set.LocalFlag == "" {
+		set.LocalFlag, _ = modCache.Lookup(filename)
+	}
 	p := newPkg(ret, set.LocalFlag)
 
 	res := append(src[:start+len(importStartFlag)], append(p.fmt(), src[end+1:]...)...)
